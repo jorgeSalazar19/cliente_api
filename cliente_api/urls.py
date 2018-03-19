@@ -23,7 +23,7 @@ urlpatterns = [
 		),
     url('admin/', admin.site.urls),
 
-    url(r'^$', index ),
+    url(r'^$', index , name='index' ),
 
     url(r'^logout/' , logOut , name='logout' ),
 

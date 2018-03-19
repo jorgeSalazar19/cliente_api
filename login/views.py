@@ -22,7 +22,7 @@ def logOut(request):
 
 @login_required
 def home(request):
-    
+    print(request)
     user = request.user
     print('usuario: ' , user )
     template = loader.get_template('home.html')
@@ -43,9 +43,21 @@ def followers(request):
     q = request.user 
     count = 20
 
-    search_results = twitter_api.friends.list(q=q, count=1)
+    search_results = twitter_api.friends.list(q=q, count=count , include_user_entities=False , cursor=-1 , skyp_status=True , screen_name=q)
 
-    print(search_results)
+    print(len(search_results['users']))
+
+    list_friends=[]*len(search_results['users'])
+    for i in range(0,(len(search_results['users'])-1)):
+        friend = search_results['users'][i]['name']
+        list_friends.append(friend)
+    
+    list_tweets = []*len(list_friends)
+    for i in list_friends:
+        search = twitter_api.search.tweets(q=i,count=1)
+        list_tweets.append(search)
+
+    print(list_tweets[10]['statuses'][0]['geo'])
 
     ctx={}
     return HttpResponse(template.render(ctx,request)) 
