@@ -31,6 +31,7 @@ def home(request):
 
 @login_required
 def followers(request):
+    followers_screen_name = []
     template = loader.get_template('followers.html')
     CONSUMER_KEY = settings.SOCIAL_AUTH_TWITTER_KEY
     CONSUMER_SECRET = settings.SOCIAL_AUTH_TWITTER_SECRET
@@ -43,9 +44,41 @@ def followers(request):
     q = request.user 
     count = 20
 
-    search_results = twitter_api.friends.list(q=q, count=1)
+    search_results = twitter_api.friends.list(q=q, count=3)
 
-    print(search_results)
+    #NOMBRES DE SEGUIDORES
+    followers_screen_name = getScreenName(search_results)
 
-    ctx={}
+    contexto = makeContext(twitter_api,followers_screen_name)
+
+    ctx={
+        'context': contexto
+    }   
+
     return HttpResponse(template.render(ctx,request)) 
+
+
+def getScreenName(followers):
+    quest = []
+    i = 0
+    while i < len(followers['users']):
+        quest.append(followers['users'][i]['screen_name'])
+        i += 1
+    return quest
+
+def makeContext(twitter_api, followers):
+    quest = {}
+    followers_last_tweet = []
+    aux = []
+    coordinates = []
+
+    for name in followers:
+        followers_last_tweet = twitter_api.statuses.user_timeline(screen_name=name, count=1)
+        try:
+            coordinates = followers_last_tweet[0]['geo']['coordinates']
+        except:
+            coordinates = []
+        aux = [ followers_last_tweet[0]['text'], coordinates ]
+        quest[name] = aux
+
+    return quest
