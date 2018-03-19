@@ -5,11 +5,6 @@
 	<title>Login Twitter</title>
 </head>
 <body>
-	{% if not user.is_authenticated %}
 		<a href="{% url 'social:begin' 'twitter' %}">Twitter login</a>
-	{% else %}
-		<h1>Bienvenido {{user}}</h1>
-		<a href="{% url 'logout' %}">Salir</a>
-	{% endif %}
 </body>
 </html>

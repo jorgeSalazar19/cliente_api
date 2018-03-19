@@ -130,11 +130,14 @@ AUTHENTICATION_BACKENDS = (
                 'social.backends.twitter.TwitterOAuth',
                 'django.contrib.auth.backends.ModelBackend',)
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_URL = 'logout/'
 
 SOCIAL_AUTH_TWITTER_KEY = '3ubg3CRJAi1eegwpEzvspLVF6'
 SOCIAL_AUTH_TWITTER_SECRET = '3yhevdh48mS8UYv4nepvRZH3xjOtH8mvGYRPCEB32u9dLH474f'
+
+TWITTER_ACCESS_TOKEN = '2176340091-n3nCzd00mCPTKAkzfk4WLUYapGwfNOsj7DBywwu'
+TWITTER_ACCESS_TOKEN_SECRET = 'jEZol75svQQd20soBJbU8HkAfMeBzIyZg38vg0llBLZGN'
 
 SOCIAL_AUTH_PIPELINE = (
     # recibe vía backend y uid las instancias de social_user y user

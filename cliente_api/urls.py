@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url , include
 
-from login.views import index , logOut
+from login.views import index , logOut , home , followers
 
 urlpatterns = [
 	url('', include('social.apps.django_app.urls' , namespace='social')
@@ -26,5 +26,9 @@ urlpatterns = [
     url(r'^$', index ),
 
     url(r'^logout/' , logOut , name='logout' ),
+
+    url(r'^home/' , home , name='home' ),
+
+    url(r'^followers/' , followers , name='followers' ),
 
 ]
