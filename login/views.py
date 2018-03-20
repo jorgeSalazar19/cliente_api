@@ -51,6 +51,8 @@ def followers(request):
 
     contexto = makeContext(twitter_api,followers_screen_name)
 
+    print(contexto)
+    
     ctx={
         'context': contexto
     }   
@@ -73,7 +75,7 @@ def makeContext(twitter_api, followers):
     coordinates = []
 
     for name in followers:
-        followers_last_tweet = twitter_api.statuses.user_timeline(screen_name=name, count=1)
+        followers_last_tweet = twitter_api.statuses.user_timeline(screen_name="JhonE_Sanz", count=1)
         try:
             coordinates = followers_last_tweet[0]['geo']['coordinates']
         except:
