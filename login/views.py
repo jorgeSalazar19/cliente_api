@@ -22,7 +22,6 @@ def logOut(request):
 
 @login_required
 def home(request):
-    print(request)
     user = request.user
     print('usuario: ' , user )
     template = loader.get_template('home.html')
@@ -43,8 +42,8 @@ def followers(request):
 
     q = request.user
 
-    search_results = twitter_api.friends.list(q=q, count=10)
-
+    search_results = twitter_api.friends.list(screen_name=q, count=20)
+    print(len(search_results))
     #print(twitter_api.statuses.user_timeline(screen_name='jorgemsm12316', count=1))
     #print(search_results['users'][1]['location'])
 
@@ -56,7 +55,6 @@ def followers(request):
     contexto = makeContext(twitter_api,followers_screen_name, followersCountry)
 
     #print(contexto)
-    
     ctx={
         'context': contexto
     }   
@@ -71,6 +69,7 @@ def getFollowerCountry(search_results):
     auxname = ""
     while  i < len(search_results['users']):
         quest[search_results['users'][i]['screen_name']] = search_results['users'][i]['location']
+        print(search_results['users'][i]['location'])
         i += 1
     return quest
 
