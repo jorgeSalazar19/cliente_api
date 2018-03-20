@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ap$5r!x6_b9mlnwfbkn-!7iv($2(!4sa4a3+0y$zn@p6r40kk^'
+SECRET_KEY = 'holajeje'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -135,11 +135,11 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_URL = 'logout/'
 
-SOCIAL_AUTH_TWITTER_KEY = '3ubg3CRJAi1eegwpEzvspLVF6'
-SOCIAL_AUTH_TWITTER_SECRET = '3yhevdh48mS8UYv4nepvRZH3xjOtH8mvGYRPCEB32u9dLH474f'
+SOCIAL_AUTH_TWITTER_KEY = 'QOIzU991dfFzzQLWl0k9OydFM'
+SOCIAL_AUTH_TWITTER_SECRET = '64UegKJt2y06Z1k5Mf1xyic8qzBPSv5xrovBTyeleELCPik2mp'
 
-TWITTER_ACCESS_TOKEN = '2176340091-n3nCzd00mCPTKAkzfk4WLUYapGwfNOsj7DBywwu'
-TWITTER_ACCESS_TOKEN_SECRET = 'jEZol75svQQd20soBJbU8HkAfMeBzIyZg38vg0llBLZGN'
+TWITTER_ACCESS_TOKEN = '732223243210391552-OstZefiDM03AtYPeZ7YQEjjU5ovJFhr'
+TWITTER_ACCESS_TOKEN_SECRET = 'kgt4xBruNhpI0C0WiPqQBubZEWfsDSWJuAWJn8APNUvSX'
 
 SOCIAL_AUTH_PIPELINE = (
     # recibe vía backend y uid las instancias de social_user y user

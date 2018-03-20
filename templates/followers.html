@@ -32,31 +32,33 @@
 <body>
 
 
-<div class="container">
+<div class="container" style="padding-top: 50px;">
 	<div class="row">
 		<div class="col">
-			<h5>Follower screen_name</h5>
+			<center><h4>Follower screen_name</h4></center>
 		</div>
 		<div class="col">
-			<h5>Tweet Text</h5>
+			<center><h4>Follower Location</h4></center>
 		</div>
 		<div class="col">
-			<h5>Localization</h5>	
+			<center><h4>Tweet Coordinates</h4></center>
 		</div>
 		<div class="col">
-			<h5>Map</h5>
+			<center><h4>Tweet Location</h4></center>
 		</div>
 	</div>
+	<hr style="border: solid 1px;">
+	<br>
 	{% for key, value in context.items %}
 			<div class="row">
 				<div class="col">
-					<h5>{{key}}</h5>
+					<h6>{{key}}</h6>
 				</div>
 				<div class="col">
-					<h5>{{value.0}}</h5>
+					<img src="https://maps.googleapis.com/maps/api/staticmap?center={{value.2}}&zoom=11&size=400x400&key=AIzaSyD-FB1AcDWkWOxrExdJBlH85lmVfpc-5f0">
 				</div>
 				<div class="col">
-					<h5>{{value.1}}</h5>	
+					<h6>{{value.1}}</h6>	
 				</div>
 
 				{% if not value.1 %}
@@ -67,10 +69,9 @@
 						<img src="https://maps.googleapis.com/maps/api/staticmap?center={{value.1.0}},{{value.1.1}}&zoom=15&size=400x400&key=AIzaSyD-FB1AcDWkWOxrExdJBlH85lmVfpc-5f0
 						">
 					</div>
-
-
 				{% endif %}
 			</div>
+			<hr>
 	{% endfor %}
 
 

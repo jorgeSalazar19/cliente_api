@@ -45,18 +45,35 @@ def followers(request):
 
     search_results = twitter_api.friends.list(q=q, count=10)
 
+    #print(twitter_api.statuses.user_timeline(screen_name='jorgemsm12316', count=1))
+    #print(search_results['users'][1]['location'])
+
+    followersCountry = getFollowerCountry(search_results)
+
     #NOMBRES DE SEGUIDORES
     followers_screen_name = getScreenName(search_results)
 
-    contexto = makeContext(twitter_api,followers_screen_name)
+    contexto = makeContext(twitter_api,followers_screen_name, followersCountry)
 
-    print(contexto)
+    #print(contexto)
     
     ctx={
         'context': contexto
     }   
 
     return HttpResponse(template.render(ctx,request)) 
+
+
+def getFollowerCountry(search_results):
+    quest = {}
+    i = 0
+    aux = ""
+    auxname = ""
+    while  i < len(search_results['users']):
+        quest[search_results['users'][i]['screen_name']] = search_results['users'][i]['location']
+        i += 1
+    return quest
+
 
 
 def getScreenName(followers):
@@ -67,19 +84,20 @@ def getScreenName(followers):
         i += 1
     return quest
 
-def makeContext(twitter_api, followers):
+def makeContext(twitter_api, followers, countries):
     quest = {}
     followers_last_tweet = []
     aux = []
     coordinates = []
 
     for name in followers:
-        followers_last_tweet = twitter_api.statuses.user_timeline(screen_name="JhonE_Sanz", count=1)
+        followers_last_tweet = twitter_api.statuses.user_timeline(screen_name=name, count=1)
         try:
             coordinates = followers_last_tweet[0]['geo']['coordinates']
         except:
             coordinates = []
-        aux = [ followers_last_tweet[0]['text'], coordinates ]
+
+        aux = [ followers_last_tweet[0]['text'], coordinates, countries[name] ]
         quest[name] = aux
 
     return quest
