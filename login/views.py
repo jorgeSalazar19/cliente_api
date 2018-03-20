@@ -31,6 +31,7 @@ def home(request):
 
 @login_required
 def followers(request):
+    followers_screen_name = []
     template = loader.get_template('followers.html')
     CONSUMER_KEY = settings.SOCIAL_AUTH_TWITTER_KEY
     CONSUMER_SECRET = settings.SOCIAL_AUTH_TWITTER_SECRET
@@ -40,24 +41,43 @@ def followers(request):
     auth = twitter.oauth.OAuth( OAUTH_TOKEN , OAUTH_SECRET, CONSUMER_KEY , CONSUMER_SECRET )
     twitter_api = twitter.Twitter(auth=auth)
 
-    q = request.user 
-    count = 20
+    q = request.user
 
-    search_results = twitter_api.friends.list(q=q, count=count , include_user_entities=False , cursor=-1 , skyp_status=True , screen_name=q)
+    search_results = twitter_api.friends.list(q=q, count=10)
 
-    print(len(search_results['users']))
+    #NOMBRES DE SEGUIDORES
+    followers_screen_name = getScreenName(search_results)
 
-    list_friends=[]*len(search_results['users'])
-    for i in range(0,(len(search_results['users'])-1)):
-        friend = search_results['users'][i]['name']
-        list_friends.append(friend)
-    
-    list_tweets = []*len(list_friends)
-    for i in list_friends:
-        search = twitter_api.search.tweets(q=i,count=1)
-        list_tweets.append(search)
+    contexto = makeContext(twitter_api,followers_screen_name)
 
-    print(list_tweets[10]['statuses'][0]['geo'])
+    ctx={
+        'context': contexto
+    }   
 
-    ctx={}
     return HttpResponse(template.render(ctx,request)) 
+
+
+def getScreenName(followers):
+    quest = []
+    i = 0
+    while i < len(followers['users']):
+        quest.append(followers['users'][i]['screen_name'])
+        i += 1
+    return quest
+
+def makeContext(twitter_api, followers):
+    quest = {}
+    followers_last_tweet = []
+    aux = []
+    coordinates = []
+
+    for name in followers:
+        followers_last_tweet = twitter_api.statuses.user_timeline(screen_name=name, count=1)
+        try:
+            coordinates = followers_last_tweet[0]['geo']['coordinates']
+        except:
+            coordinates = []
+        aux = [ followers_last_tweet[0]['text'], coordinates ]
+        quest[name] = aux
+
+    return quest
