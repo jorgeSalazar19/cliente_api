@@ -22,7 +22,7 @@ def logOut(request):
 
 @login_required
 def home(request):
-    
+    print(request)
     user = request.user
     print('usuario: ' , user )
     template = loader.get_template('home.html')
@@ -41,10 +41,9 @@ def followers(request):
     auth = twitter.oauth.OAuth( OAUTH_TOKEN , OAUTH_SECRET, CONSUMER_KEY , CONSUMER_SECRET )
     twitter_api = twitter.Twitter(auth=auth)
 
-    q = request.user 
-    count = 20
+    q = request.user
 
-    search_results = twitter_api.friends.list(q=q, count=3)
+    search_results = twitter_api.friends.list(q=q, count=10)
 
     #NOMBRES DE SEGUIDORES
     followers_screen_name = getScreenName(search_results)
