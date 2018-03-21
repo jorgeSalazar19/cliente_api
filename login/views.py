@@ -43,9 +43,6 @@ def followers(request):
     q = request.user
 
     search_results = twitter_api.friends.list(screen_name=q, count=20)
-    print(len(search_results))
-    #print(twitter_api.statuses.user_timeline(screen_name='jorgemsm12316', count=1))
-    #print(search_results['users'][1]['location'])
 
     followersCountry = getFollowerCountry(search_results)
 
@@ -69,7 +66,6 @@ def getFollowerCountry(search_results):
     auxname = ""
     while  i < len(search_results['users']):
         quest[search_results['users'][i]['screen_name']] = search_results['users'][i]['location']
-        print(search_results['users'][i]['location'])
         i += 1
     return quest
 

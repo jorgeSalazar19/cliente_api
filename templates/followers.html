@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Seguidores</title>
+	<title>Amigos</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,54 +33,39 @@
 
 
 <div class="container" style="padding-top: 50px;">
-	<div class="row">
-		<div class="col">
-			<center><h4>Follower screen_name</h4></center>
-		</div>
-		<div class="col">
-			<center><h4>Follower Location</h4></center>
-		</div>
-		<div class="col">
-			<center><h4>Tweet Coordinates</h4></center>
-		</div>
-		<div class="col">
-			<center><h4>Tweet Location</h4></center>
-		</div>
-	</div>
-	<hr style="border: solid 1px;">
-	<br>
-	{% for key, value in context.items %}
-		{% if value.2 %}
-			<div class="row">
-				<div class="col">
-					<h6>{{key}}</h6>
-				</div>
-				<div class="col">
-					<img src="https://maps.googleapis.com/maps/api/staticmap?center={{value.2}}&zoom=5&size=400x400&key=AIzaSyD-FB1AcDWkWOxrExdJBlH85lmVfpc-5f0">
-				</div>
-				<div class="col">
-					<h6>{{value.1}}</h6>	
-				</div>
+<table class="table">
+  <thead class="thead-light">
+    <tr align="center">
+      <th scope="col">Nombre de Usuario</th>
+      <th scope="col">Ubicación</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for key, value in context.items  %}
+    <tr align="center">
+      <td>{{key}}</td>
+      <td>{{value.2}}</td>	
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<br>
+<hr>
 
-				{% if not value.1 %}
-					<div>No se encontraron coordenadas</div>
-				{% else %}
-
-					<div class="col">
-						<img src="https://maps.googleapis.com/maps/api/staticmap?center={{value.1.0}},{{value.1.1}}&zoom=15&size=400x400&key=AIzaSyD-FB1AcDWkWOxrExdJBlH85lmVfpc-5f0
-						">
-					</div>
-				{% endif %}
-			</div>
-			<hr>
-		{% endif %}
-	{% endfor %}
-
-
+<div class="container" align="center">
+	<p class="h3" align="center" style="padding-top: 50px">Mapa con Ubicaciones</p>
 </div>
+	
+</div>
+
+	<div class="container" align="center" style="padding-top: 40px;">
+		<a href="{% url 'home' %}" class="btn btn-primary">Regresar</a>
+	</div>
+	<br><br>
 
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>
