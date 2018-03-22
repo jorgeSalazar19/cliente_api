@@ -10,11 +10,11 @@ import twitter, json
 from django.conf import settings
 
 def index(request):
-
     template = loader.get_template('index.html')
     ctx = {}
     return HttpResponse(template.render(ctx,request))
 
+@login_required
 def logOut(request):
     logout(request)
     return redirect('/')
@@ -23,7 +23,6 @@ def logOut(request):
 @login_required
 def home(request):
     user = request.user
-    print('usuario: ' , user )
     template = loader.get_template('home.html')
     ctx={'user': user,}
     return HttpResponse(template.render(ctx,request))
@@ -39,10 +38,7 @@ def followers(request):
 
     auth = twitter.oauth.OAuth( OAUTH_TOKEN , OAUTH_SECRET, CONSUMER_KEY , CONSUMER_SECRET )
     twitter_api = twitter.Twitter(auth=auth)
-
-    q = request.user
-
-    search_results = twitter_api.friends.list(screen_name=q, count=20)
+    search_results = twitter_api.friends.list(screen_name=request.user, count=20)
 
     followersCountry = getFollowerCountry(search_results)
 
@@ -58,7 +54,7 @@ def followers(request):
 
     return HttpResponse(template.render(ctx,request)) 
 
-
+@login_required
 def getFollowerCountry(search_results):
     quest = {}
     i = 0
@@ -70,7 +66,7 @@ def getFollowerCountry(search_results):
     return quest
 
 
-
+@login_required
 def getScreenName(followers):
     quest = []
     i = 0
@@ -79,6 +75,7 @@ def getScreenName(followers):
         i += 1
     return quest
 
+@login_required
 def makeContext(twitter_api, followers, countries):
     quest = {}
     followers_last_tweet = []
