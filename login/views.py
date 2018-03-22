@@ -39,7 +39,7 @@ def followers(request):
     twitter_api = twitter.Twitter(auth=auth)
 
     q=request.user
-    search_results = twitter_api.friends.list(screen_name=q)
+    search_results = twitter_api.friends.list(screen_name=q , count=20)
 
     followersCountry = getFollowerCountry(search_results)
 
