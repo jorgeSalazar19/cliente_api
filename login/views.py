@@ -10,14 +10,14 @@ import twitter, json
 from django.conf import settings
 
 def index(request):
-
     template = loader.get_template('index.html')
     ctx = {}
     return HttpResponse(template.render(ctx,request))
 
 def logOut(request):
-    logout(request)
-    return redirect('/')
+    if request.user.is_authenticated() or request.user is not None:
+        logout(request)
+        return redirect('/')
 
 
 @login_required
