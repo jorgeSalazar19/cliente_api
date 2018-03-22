@@ -17,6 +17,7 @@ def index(request):
 @login_required
 def logOut(request):
     logout(request)
+    request.user = ''
     return redirect('/')
 
 
