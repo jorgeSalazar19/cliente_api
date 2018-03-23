@@ -8,6 +8,7 @@ import requests
 from social_django.models import UserSocialAuth
 import twitter, json
 from django.conf import settings
+from django.utils.html import escape
 
 def index(request):
     template = loader.get_template('index.html')
@@ -43,6 +44,9 @@ def followers(request):
 
     followersCountry = getFollowerCountry(search_results)
 
+    locations = auxContext(followersCountry)
+    #print(json.dumps(followersCountry))
+
     #NOMBRES DE SEGUIDORES
     followers_screen_name = getScreenName(search_results)
 
@@ -50,17 +54,25 @@ def followers(request):
 
     #print(contexto)
     ctx={
-        'context': contexto
+        'context': contexto,
+        'locations': json.dumps(followersCountry)
     }   
 
     return HttpResponse(template.render(ctx,request)) 
+
+def auxContext(followersCountry):
+    quest = []
+
+    for item in followersCountry:
+        quest.append(followersCountry[item])
+    return quest
 
 
 def getFollowerCountry(search_results):
     quest = {}
     i = 0
-    aux = ""
-    auxname = ""
+    aux = ''
+    auxname = ''
     while  i < len(search_results['users']):
         quest[search_results['users'][i]['screen_name']] = search_results['users'][i]['location']
         i += 1
