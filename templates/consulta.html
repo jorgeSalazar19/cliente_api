@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Consulta Datos</title>
+</head>
+
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+	{% if error.0 %}
+
+		<h5>{{error.1}}</h5>
+		
+	{% endif %}
+	<form method="POST"> {% csrf_token %}
+		<select name = "departamento" required = "True">
+			{% for departamento in departamentos  %}
+				<option value="{{departamento.nombre}}">{{departamento.nombre}}</option>
+			{% endfor %}
+		</select>
+
+		<select name="dia" required="true">
+			<option value="Lunes">Lunes</option>
+			<option value="Martes">Martes</option>
+			<option value="Miercoles">Miercoles</option>
+			<option value="Jueves">Jueves</option>
+			<option value="Viernes">Viernes</option>
+			<option value="Sabado">Sabado</option>
+			<option value="Domingo">Domingo</option>
+		</select>
+
+		<button type="submit" id="botonEnviar" class="btn btn-primary">Enviar</button>
+	</form>
+
+	{{table | safe }}
+
+</body>
+</html>

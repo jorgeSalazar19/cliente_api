@@ -20,9 +20,6 @@
 		  	<li class="nav-item">
 	        	<a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
 	      	</li>
-	      	<li class="nav-item">
-	        	<a class="nav-link active" href="{% url 'followers' %}">Obtener Seguidores</a>
-	      	</li>
 		  </ul>
 	  </div>
 	</nav>
@@ -31,13 +28,13 @@
 
 <body>
 	<div class="container">
-		<p class="h3" align="center" style="padding-top: 50px">Bienvenido a la app de logueo de twitter <strong>@{{user}}</strong></p>
+		<p class="h3" align="center" style="padding-top: 50px">Bienvenido a nuestra app para obtener datos abiertos, <applet></applet><strong>@{{user}}</strong></p>
 		<p class="lead" align="center" style="padding-top: 30px;">
-  			Ahora que estas logueado en nuestra app estas a un solo paso de poder obtener algunos de tus seguidores de twitter y ver su ubicación en el mapa de google.
+  			Ahora que estas logueado en nuestra app estas a un solo paso de poder obtener información acerca de la Recuperación automotores del 01 de enero al 28 de febrero año 2018 (Fuente: Grupo Información de Criminalidad (GICRI) - DIJIN. Información preliminar, datos extraídos el 03 de marzo de 2018, sujeto a variación.).
 		</p>
 	</div>
 	<div class="container" align="center" style="padding-top: 40px;">
-		<a href="{% url 'followers' %}" class="btn btn-primary">Obtener Amigos y Ubicaciones</a>
+		<a href=" {% url 'consulta' %} " class="btn btn-primary">Ir a consultar datos</a>
 	</div>
 </body>
 </html>

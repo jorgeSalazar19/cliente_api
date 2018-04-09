@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset='UTF-8'>
-	<title>Login Twitter</title>
+	<title>Datos Abiertos</title>
 
 <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -17,18 +17,18 @@
 
 
 	<nav class="navbar navbar-dark bg-dark">
-	  <a class="navbar-brand" href="{% url 'index' %}">App Twitter</a>
+	  <a class="navbar-brand" href="{% url 'index' %}">App Datos Abiertos</a>
 	</nav>
 
 </head>
 <body>
 	<div class="container">
-		<p class="h3" align="center" style="padding-top: 50px">Aplicación de logueo con twitter</p>
+		<p class="h3" align="center" style="padding-top: 50px">Aplicación para hacer consultas de la pagina de datos abiertos www.datos.gov.co (Recuperación de automotores 2018 )</p><br>
 		<p class="lead" align="center">
-  			El objetivo de esta aplicación es permitirle a sus usuarios conectarse con su cuenta de twitter para iniciar sesión y posteriormente ubicar algunos de sus amigos de twitter con ayuda de la api de twitter y de google maps, <strong>empecemos</strong>
+  			El objetivo de esta aplicación es permitirle a sus usuarios conectarse con su cuenta de twitter para iniciar sesión y posteriormente realizar una conslta determinada a la api de datos abiertos y realizar una grafica estadistica en base a los datos obtenidos <strong>empecemos</strong>
 		</p>
 	</div>
-	<div class="container" align="center" style="padding-top: 50px">
+	<div class="container" align="center" style="padding-top: 10px">
 		<div class="btn-group">
 		        <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-primary">
 			        <span style="color: white;">Twitter Login</span>
