@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^home/' , home , name='home' ),
 
     url(r'^Consulta_datos/' , ConsultaDatos , name='consulta' ),
-    
-
+   
+    url(r'^Graficar_datos/' , grafica , name='grafica' ),
+   
 ]

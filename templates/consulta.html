@@ -31,8 +31,11 @@
 
 		<button type="submit" id="botonEnviar" class="btn btn-primary">Enviar</button>
 	</form>
+		<a href="{% url 'consulta' %}" type="button" class="btn btn-danger">Limpiar</a>
+		<a href="{% url 'grafica' %}" type="button" class="btn btn-warning">Grafica</a>
 
 	{{table | safe }}
+	{{grafica | safe }}
 
 </body>
 </html>

@@ -11,7 +11,11 @@ from django.conf import settings
 from django.utils.html import escape
 from sodapy import Socrata
 import pandas as pd
-from .models import Departamentos
+from .models import *
+import plotly
+import plotly.offline as opy
+import plotly.plotly as py
+import plotly.graph_objs as go
 
 def index(request):
     template = loader.get_template('index.html')
@@ -48,6 +52,22 @@ def ConsultaDatos(request):
         results = client.get("w9k9-bn7g", limit=700)
         results_df = pd.DataFrame(results)
         lista = results_df[(results_df['departamento']==departamento) & (results_df['d_a']==dia)]
+
+        lista1 = results_df[(results_df['departamento']==departamento) & (results_df['d_a']=='Lunes')]
+        lista2 = results_df[(results_df['departamento']==departamento) & (results_df['d_a']=='Martes')]
+        lista3 = results_df[(results_df['departamento']==departamento) & (results_df['d_a']=='Miercoles')]
+        lista4 = results_df[(results_df['departamento']==departamento) & (results_df['d_a']=='Jueves')]
+        lista5 = results_df[(results_df['departamento']==departamento) & (results_df['d_a']=='Viernes')]
+
+        plotly.tools.set_credentials_file(username='jorgesalazar19', api_key='8mK4qbSqP7UqPUNLQFIc')
+        plotly.tools.set_config_file(world_readable=True)
+
+        labels=['Lunes','Martes','Miercoles','Jueves' , 'Viernes']
+        values=[len(lista1.index),len(lista2.index),len(lista3.index),len(lista4.index),len(lista5.index)]
+        trace=go.Pie(labels=labels,values=values)
+        div = opy.plot([trace], auto_open=False , output_type='div')
+
+
         lista = lista.rename(columns={   
                     '':'id' ,
                     'barrio' : 'Barrio',
@@ -67,5 +87,12 @@ def ConsultaDatos(request):
     ctx = {
             'departamentos' : departamentos,
             'table' : lista_table,
+            'grafica' : div,
     }
+    return HttpResponse(template.render(ctx,request))
+
+@login_required
+def grafica(request):
+    template = loader.get_template('grafica.html')
+    ctx = {}
     return HttpResponse(template.render(ctx,request))
